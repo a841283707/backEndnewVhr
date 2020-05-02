@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.javaboy.vhr.mapper.DepartmentMapper" >
+    <!--resultMap里面的属性要大于等于sql查询出来的属性-->
+  <resultMap id="BaseResultMap" type="org.javaboy.vhr.bean.Department" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="parentId" property="parentid" jdbcType="INTEGER" />
+    <result column="depPath" property="deppath" jdbcType="VARCHAR" />
+    <result column="enabled" property="enabled" jdbcType="BIT" />
+    <result column="isParent" property="isparent" jdbcType="BIT" />
+  </resultMap>
+  <resultMap id="BaseResultMap2" type="org.javaboy.vhr.bean.Department" extends="BaseResultMap">
+    <collection property="children" ofType="org.javaboy.vhr.bean.Department"
+                select="org.javaboy.vhr.mapper.DepartmentMapper.getDepartmentByParentId" column="id">
+    </collection>
+  </resultMap>
+  <!--<resultMap id="TestMap" type="org.javaboy.vhr.bean.Department"  >
+      <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>-->
+  <sql id="Base_Column_List" >
+    id, name, parentId, depPath, enabled, isParent
+  </sql>
+    <!--在使用requestparam的时候，由各个param插入，也可以使用parameterType="org.javaboy.vhr.bean.Department"
+    使用requestBody的时候也一样-->
+  <insert id="insertDepartment" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="org.javaboy.vhr.bean.Department"  >
+      insert into department (name,parentId) value (#{name},#{parentid})
+  </insert>
+
+  <select id="getDeppath" resultType="java.lang.String" parameterType="java.lang.Integer">
+    select depPath from department where id=#{parentId}
+  </select>
+  <!--当传入多参数的时候两种解决办法，第一种param1 param2
+  第二种@Param的使用 1、用于传多参数，2、用于修改默认参数名字
+  3、用于${列名}等不需要变成？的值，一定要加@Param不然会报错
+  4、当给动态sql传参时需要加@Param 参考网址https://mp.weixin.qq.co
+  m/s?src=11&timestamp=1588153640&ver=2308&signature=2g-xS9vG3-
+  ZFck0-eOpBW5BKaeWNQ9pQTB4k0I8agjYHZtPN4iXUPJ68sz8*FiTR6AfywBfg26B
+  b9d1Ps2XX9ME2rmLO3lNfQ6mc4nlhEJoEzfa5*9qfZGRa9EkXY8Xm&new=1-->
+  <update id="insertPath" >
+    update  department set depPath=#{path} where id=#{id}
+  </update>
+  <!--在员工表是否存在该部门员工-->
+  <select id="getCountInemp" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select count(*) from employee where departmentId=#{id}
+  </select>
+  <!--得到parentId-->
+  <select id="getparentId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select parentId from department where id=#{id}
+  </select>
+  <!--得到是否存在多个子部门-->
+  <select id="getCountChild" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select count(*) from department where parentId=#{parentId}
+  </select>
+  <select id="getIsParent" parameterType="java.lang.Integer" resultType="java.lang.Boolean">
+    select isParent from department where id=#{parentId}
+  </select>
+
+  <!--满足条件后删除员工-->
+  <delete id="deleteDep" parameterType="java.lang.Integer">
+    delete from department where id=#{id}
+  </delete>
+
+  <update id="updateIsParentId" parameterType="java.lang.Integer">
+    update department set isParent=true where id=#{parentId}
+  </update>
+  <!--在只有一个子部门的情况下改变isParent的值-->
+  <update id="updateIsParentById" parameterType="java.lang.Integer">
+    update department set isParent=false where id=#{parentId}
+  </update>
+    <!--也可以直接用resultType返回一个类，但是属性值和sql得到的要一一对应
+    resultMap可以自己定义对应规则，并且resultMap可以适用于复杂的多表查询，还有
+    嵌套查询等ibatis独特的功能-->
+  <select id="getTest" resultType="org.javaboy.vhr.bean.Department"  >
+      select id, name from department
+  </select>
+  <!--  期望从这条语句中返回结果的类全限定名或别名。
+    注意，如果返回的是集合，那应该设置为集合包含的类型，而不是集合本身的类型。
+    resultType 和 resultMap 之间只能同时使用一个。-->
+  <select id="getName" resultType="java.lang.String">
+      select name from department
+  </select>
+  <!--可以查出一个集合-->
+  <select id="getDepartmentByParentId" resultMap="BaseResultMap2" parameterType="java.lang.Integer">
+    select * from department where parentId=#{id}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from department
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from department
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.javaboy.vhr.bean.Department" >
+    insert into department (id, name, parentId, 
+      depPath, enabled, isParent)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER}, 
+      #{deppath,jdbcType=VARCHAR}, #{enabled,jdbcType=BIT}, #{isparent,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="org.javaboy.vhr.bean.Department" >
+    insert into department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="parentid != null" >
+        parentId,
+      </if>
+      <if test="deppath != null" >
+        depPath,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="isparent != null" >
+        isParent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="deppath != null" >
+        #{deppath,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=BIT},
+      </if>
+      <if test="isparent != null" >
+        #{isparent,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.javaboy.vhr.bean.Department" >
+    update department
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        parentId = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="deppath != null" >
+        depPath = #{deppath,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=BIT},
+      </if>
+      <if test="isparent != null" >
+        isParent = #{isparent,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.javaboy.vhr.bean.Department" >
+    update department
+    set name = #{name,jdbcType=VARCHAR},
+      parentId = #{parentid,jdbcType=INTEGER},
+      depPath = #{deppath,jdbcType=VARCHAR},
+      enabled = #{enabled,jdbcType=BIT},
+      isParent = #{isparent,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
