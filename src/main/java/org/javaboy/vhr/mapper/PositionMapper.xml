@@ -12,6 +12,11 @@
   </sql>
 
 
+
+
+
+
+
     <!--
     1. 如果传入的是单参数且参数类型是一个List的时候，collection属性值为list
     2. 如果传入的是单参数且参数类型是一个array数组的时候，collection的属性值为array
@@ -20,7 +25,12 @@
     map的key就是参数名，所以这个时候collection属性值就是传入的List或array对象在自己封装
     的map里面的key
     -->
-    
+  <delete id="deleteAll" >
+    delete from position where id in
+    <foreach collection="list" open="(" close=")" separator="," index="i" item="position">
+      #{position.id}
+    </foreach>
+  </delete>
   <delete id="deletePosition" parameterType="java.lang.Integer">
       delete from position where id=#{id}
   </delete>

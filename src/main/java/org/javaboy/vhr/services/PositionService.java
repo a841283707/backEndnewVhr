@@ -26,4 +26,8 @@ public class PositionService {
     public Integer deletePosition(Integer id) {
         return positionMapper.deletePosition(id);
     }
+
+    public Integer deleteAll(List<Position> positions) {
+         return   positionMapper.deleteAll(positions);
+    }
 }

@@ -45,3 +45,9 @@ spring:
         exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
 server:
   port: 8084
+logging:
+  level:
+    root: info
+    org.javaboy.vhr.mapper: debug
+  file:
+    path: /workspace/rock/jpa-test/log

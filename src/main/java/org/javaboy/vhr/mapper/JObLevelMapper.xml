@@ -11,6 +11,12 @@
   <sql id="Base_Column_List" >
     id, name, titleLevel, createDate, enabled
   </sql>
+
+  <!--获取所有的职称对象-->
+  <select id="getGrades" resultType="org.javaboy.vhr.bean.JObLevel">
+    select * from joblevel
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

@@ -47,4 +47,12 @@ public class positionController {
             return RespBean.error("发生错误");
         }
     }
+
+    @DeleteMapping("/deleteAll")
+    /*接收不到前端传来参数也可以在前端看requestPayload*/
+    public RespBean deliteAll(@RequestBody List<Position> positions){
+        positionService.deleteAll(positions);
+            return RespBean.ok("删除成功");
+
+    }
 }
