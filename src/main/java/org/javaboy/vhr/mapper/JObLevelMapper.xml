@@ -12,6 +12,17 @@
     id, name, titleLevel, createDate, enabled
   </sql>
 
+  <update id="updateGrade" parameterType="org.javaboy.vhr.bean.JObLevel">
+    update joblevel set name=#{name},titleLevel=#{titlelevel},createDate=CURRENT_DATE  where id=#{id}
+  </update>
+  <!--删除行记录-->
+  <delete id="deleteGrade" parameterType="java.lang.Integer">
+    delete from joblevel where id=#{id}
+  </delete>
+  <!--插入新纪录-->
+  <insert id="addGrade" parameterType="org.javaboy.vhr.bean.JObLevel">
+    insert into joblevel (name, titleLevel) values (#{name},#{titlelevel})
+  </insert>
   <!--获取所有的职称对象-->
   <select id="getGrades" resultType="org.javaboy.vhr.bean.JObLevel">
     select * from joblevel

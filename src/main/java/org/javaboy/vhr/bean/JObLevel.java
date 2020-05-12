@@ -1,5 +1,7 @@
 package org.javaboy.vhr.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class JObLevel {
@@ -9,6 +11,7 @@ public class JObLevel {
 
     private String titlelevel;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createdate;
 
     private Boolean enabled;

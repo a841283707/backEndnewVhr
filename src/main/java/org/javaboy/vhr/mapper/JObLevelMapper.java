@@ -18,4 +18,10 @@ public interface JObLevelMapper {
     int updateByPrimaryKey(JObLevel record);
 
     List<JObLevel> getGrades();
+
+    Integer addGrade(JObLevel jObLevel);
+
+    Integer deleteGrade(Integer id);
+
+    Integer updateGrade(JObLevel jObLevel);
 }

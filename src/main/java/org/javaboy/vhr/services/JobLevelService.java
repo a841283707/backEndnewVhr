@@ -15,4 +15,16 @@ public class JobLevelService {
     public  List<JObLevel> getGrades() {
             return jObLevelMapper.getGrades();
     }
+
+    public Integer addGrade(JObLevel jObLevel) {
+        return jObLevelMapper.addGrade(jObLevel);
+    }
+
+    public Integer deleteGrade(Integer id) {
+        return jObLevelMapper.deleteGrade(id);
+    }
+
+    public Integer updateGrade(JObLevel jObLevel) {
+            return jObLevelMapper.updateGrade(jObLevel);
+    }
 }
