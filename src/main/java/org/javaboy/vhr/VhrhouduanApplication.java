@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 //扫描mapper的包
-@MapperScan(basePackages = "org.javaboy.vhr.mapper")
 public class VhrhouduanApplication {
 
     public static void main(String[] args) {

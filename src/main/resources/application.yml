@@ -5,6 +5,7 @@ spring:
     password: aiMONEY157732
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
+      # timeZone=GMT
       # 下面为连接池的补充设置，应用到上面所有数据源中
       # 初始化大小，最小，最大
       initial-size: 5
@@ -51,3 +52,14 @@ logging:
     org.javaboy.vhr.mapper: debug
   file:
     path: /workspace/rock/jpa-test/log
+
+#mybatis-plus配置日子
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
