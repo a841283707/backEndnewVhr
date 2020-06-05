@@ -1,8 +1,14 @@
 package org.javaboy.vhr.bean;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.List;
 
+
+@ApiModel(value = "菜单实体类")
 public class Menu {
+    @ApiModelProperty(value = "菜单id")
     private Integer id;
 
     private String url;

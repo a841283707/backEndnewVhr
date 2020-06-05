@@ -1,6 +1,9 @@
 package org.javaboy.vhr.controller.systemBasic;
 
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.javaboy.vhr.bean.Department;
 import org.javaboy.vhr.bean.RespBean;
 import org.javaboy.vhr.services.DepartmentService;
@@ -9,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+@Api(tags = "操作部门树的控制器")
 @RestController
 @RequestMapping("/sys/basic/department")
 public class departmentController {
@@ -30,10 +35,11 @@ public class departmentController {
         return departmentService.getTest();
     }
 
+    @ApiOperation(value = "插入部门的方法")
     @PostMapping("/insertDepartment")
     /*postman发送带contentType的请求时，在header里面设置contentType
     在Body raw数据里面设置数据*/
-    public void insertDepartment(@RequestBody Department department){
+    public void insertDepartment( @ApiParam(name = "department",value = "插入部门实体类参数") @RequestBody Department department){
         departmentService.insertDepartment(department);
         Integer id=department.getId();
         Integer parentId=department.getParentid();

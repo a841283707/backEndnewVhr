@@ -9,13 +9,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-/*开启事务，不开启无法生效*/
+/** 开启事务，不开启无法生效*/
 @MapperScan(basePackages = "org.javaboy.vhr.mapper")
 @EnableTransactionManagement
 @Configuration
 public class MabitisPlusConfig {
 
-    /** 乐观锁*/
+    /** 乐观锁插件*/
     @Bean
     public OptimisticLockerInterceptor optimisticLockerInterceptor() {
         return new OptimisticLockerInterceptor();
