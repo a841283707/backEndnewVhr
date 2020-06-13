@@ -1,36 +1,65 @@
 package org.javaboy.vhr.bean;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
+@ApiModel(value = "员工基本信息实体类")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Employee {
+
+    @TableId(value = "id",type = IdType.AUTO)
     private Integer id;
 
+    @ApiModelProperty(value = "员工姓名")
     private String name;
 
+    @ApiModelProperty(value = "员工性别")
     private String gender;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
+    @ApiModelProperty(value = "员工身份证号")
     private String idcard;
 
+    @ApiModelProperty(value = "婚姻状况")
     private String wedlock;
 
+    @ApiModelProperty(value = "民族ID")
     private Integer nationid;
 
+    @ApiModelProperty(value = "籍贯")
     private String nativeplace;
 
+    @ApiModelProperty(value = "政治面貌ID")
     private Integer politicid;
 
+    @ApiModelProperty(value = "邮件")
     private String email;
 
+    @ApiModelProperty(value = "电话")
     private String phone;
 
+    @ApiModelProperty(value = "地址")
     private String address;
 
+    @ApiModelProperty(value = "部门id")
     private Integer departmentid;
 
+    @ApiModelProperty(value = "职称id")
     private Integer joblevelid;
 
+    @ApiModelProperty(value = "职位ID")
     private Integer posid;
 
     private String engageform;
@@ -45,6 +74,7 @@ public class Employee {
 
     private String workstate;
 
+    @ApiModelProperty(value = "工号")
     private String workid;
 
     private Double contractterm;
@@ -53,233 +83,24 @@ public class Employee {
 
     private Date notworkdate;
 
+    @ApiModelProperty(value = "开始合同")
     private Date begincontract;
 
+    @ApiModelProperty(value = "结束合同")
     private Date endcontract;
 
     private Integer workage;
 
-    public Integer getId() {
-        return id;
-    }
+    private Position position;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private Nation nation;
 
-    public String getName() {
-        return name;
-    }
+    private JObLevel jObLevel;
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+    @ApiModelProperty(value = "部门")
+    private Department department;
 
-    public String getGender() {
-        return gender;
-    }
+    @ApiModelProperty(value = "政治面貌")
+    private Politicsstatus politicsstatus;
 
-    public void setGender(String gender) {
-        this.gender = gender == null ? null : gender.trim();
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public String getIdcard() {
-        return idcard;
-    }
-
-    public void setIdcard(String idcard) {
-        this.idcard = idcard == null ? null : idcard.trim();
-    }
-
-    public String getWedlock() {
-        return wedlock;
-    }
-
-    public void setWedlock(String wedlock) {
-        this.wedlock = wedlock == null ? null : wedlock.trim();
-    }
-
-    public Integer getNationid() {
-        return nationid;
-    }
-
-    public void setNationid(Integer nationid) {
-        this.nationid = nationid;
-    }
-
-    public String getNativeplace() {
-        return nativeplace;
-    }
-
-    public void setNativeplace(String nativeplace) {
-        this.nativeplace = nativeplace == null ? null : nativeplace.trim();
-    }
-
-    public Integer getPoliticid() {
-        return politicid;
-    }
-
-    public void setPoliticid(Integer politicid) {
-        this.politicid = politicid;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
-    }
-
-    public Integer getDepartmentid() {
-        return departmentid;
-    }
-
-    public void setDepartmentid(Integer departmentid) {
-        this.departmentid = departmentid;
-    }
-
-    public Integer getJoblevelid() {
-        return joblevelid;
-    }
-
-    public void setJoblevelid(Integer joblevelid) {
-        this.joblevelid = joblevelid;
-    }
-
-    public Integer getPosid() {
-        return posid;
-    }
-
-    public void setPosid(Integer posid) {
-        this.posid = posid;
-    }
-
-    public String getEngageform() {
-        return engageform;
-    }
-
-    public void setEngageform(String engageform) {
-        this.engageform = engageform == null ? null : engageform.trim();
-    }
-
-    public String getTiptopdegree() {
-        return tiptopdegree;
-    }
-
-    public void setTiptopdegree(String tiptopdegree) {
-        this.tiptopdegree = tiptopdegree == null ? null : tiptopdegree.trim();
-    }
-
-    public String getSpecialty() {
-        return specialty;
-    }
-
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty == null ? null : specialty.trim();
-    }
-
-    public String getSchool() {
-        return school;
-    }
-
-    public void setSchool(String school) {
-        this.school = school == null ? null : school.trim();
-    }
-
-    public Date getBegindate() {
-        return begindate;
-    }
-
-    public void setBegindate(Date begindate) {
-        this.begindate = begindate;
-    }
-
-    public String getWorkstate() {
-        return workstate;
-    }
-
-    public void setWorkstate(String workstate) {
-        this.workstate = workstate == null ? null : workstate.trim();
-    }
-
-    public String getWorkid() {
-        return workid;
-    }
-
-    public void setWorkid(String workid) {
-        this.workid = workid == null ? null : workid.trim();
-    }
-
-    public Double getContractterm() {
-        return contractterm;
-    }
-
-    public void setContractterm(Double contractterm) {
-        this.contractterm = contractterm;
-    }
-
-    public Date getConversiontime() {
-        return conversiontime;
-    }
-
-    public void setConversiontime(Date conversiontime) {
-        this.conversiontime = conversiontime;
-    }
-
-    public Date getNotworkdate() {
-        return notworkdate;
-    }
-
-    public void setNotworkdate(Date notworkdate) {
-        this.notworkdate = notworkdate;
-    }
-
-    public Date getBegincontract() {
-        return begincontract;
-    }
-
-    public void setBegincontract(Date begincontract) {
-        this.begincontract = begincontract;
-    }
-
-    public Date getEndcontract() {
-        return endcontract;
-    }
-
-    public void setEndcontract(Date endcontract) {
-        this.endcontract = endcontract;
-    }
-
-    public Integer getWorkage() {
-        return workage;
-    }
-
-    public void setWorkage(Integer workage) {
-        this.workage = workage;
-    }
 }

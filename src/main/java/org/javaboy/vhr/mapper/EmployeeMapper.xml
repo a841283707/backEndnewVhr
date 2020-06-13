@@ -31,6 +31,58 @@
     <result column="endContract" property="endcontract" jdbcType="DATE" />
     <result column="workAge" property="workage" jdbcType="INTEGER" />
   </resultMap>
+  <resultMap id="allEmp" type="org.javaboy.vhr.bean.Employee" extends="BaseResultMap">
+    <association property="position" javaType="org.javaboy.vhr.bean.Position">
+      <id column="posid" property="id"/>
+      <result column="posname" property="name"/>
+    </association>
+    <association property="nation" javaType="org.javaboy.vhr.bean.Nation">
+      <id column="nid" property="id"/>
+      <result column="nname" property="name"/>
+    </association>
+    <association property="politicsstatus" javaType="org.javaboy.vhr.bean.Politicsstatus">
+      <id column="pid" property="id"/>
+      <result column="pname" property="name"/>
+    </association>
+    <association property="department" javaType="org.javaboy.vhr.bean.Department">
+      <id column="did" property="id"/>
+      <result column="dname" property="name"/>
+    </association>
+    <association property="jObLevel" javaType="org.javaboy.vhr.bean.JObLevel">
+      <id column="jid" property="id"/>
+      <result column="jname" property="name"/>
+    </association>
+  </resultMap>
+  <select id="selectPageVo" resultMap="allEmp">
+    select e.*,p.`id` as pid,p.`name` as pname,n.`id` as nid,n.`name` as nname,d.`id` as did,d.`name` as
+    dname,j.`id` as jid,j.`name` as jname,pos.`id` as posid,pos.`name` as posname from employee e,nation
+    n,politicsstatus p,department d,joblevel j,position pos where e.`nationId`=n.`id` and e.`politicId`=p.`id` and
+    e.`departmentId`=d.`id` and e.`jobLevelId`=j.`id` and e.`posId`=pos.`id`
+    <if test="emp.name !=null and emp.name!=''">
+      and e.name like concat('%',#{emp.name},'%')
+    </if>
+    <if test="emp.politicId !=null">
+      and e.politicId =#{emp.politicId}
+    </if>
+    <if test="emp.nationId !=null">
+      and e.nationId =#{emp.nationId}
+    </if>
+    <if test="emp.departmentId !=null">
+      and e.departmentId =#{emp.departmentId}
+    </if>
+    <if test="emp.jobLevelId !=null">
+      and e.jobLevelId =#{emp.jobLevelId}
+    </if>
+    <if test="emp.engageForm !=null and emp.engageForm!=''">
+      and e.engageForm =#{emp.engageForm}
+    </if>
+    <if test="emp.posId !=null">
+      and e.posId =#{emp.posId}
+    </if>
+    <if test="beginDateScope !=null">
+      and e.beginDate between #{beginDateScope[0]} and #{beginDateScope[1]}
+    </if>
+  </select>
   <sql id="Base_Column_List" >
     id, name, gender, birthday, idCard, wedlock, nationId, nativePlace, politicId, email, 
     phone, address, departmentId, jobLevelId, posId, engageForm, tiptopDegree, specialty, 

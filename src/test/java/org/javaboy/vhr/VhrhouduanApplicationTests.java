@@ -1,13 +1,17 @@
 package org.javaboy.vhr;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.catalina.User;
 import org.javaboy.vhr.TestBean.TestEmployee;
+import org.javaboy.vhr.bean.Employee;
 import org.javaboy.vhr.bean.Hr;
 import org.javaboy.vhr.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -119,4 +123,31 @@ class VhrhouduanApplicationTests {
         userMapper.deleteById("1020");
     }
 
+
+    /*docker run --name myredis1 -p 6379:6379
+    * 虚拟机的6379，映射到容器的6379
+    * */
+
+    /*注入了两个相同的redisTemplate那么会自动按照name装配*/
+    @Autowired
+    private RedisTemplate<Object,Object> redisTemplate;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+    @Test
+    public void testRedis(){
+        /** 对象不序列化会报错需要一个序列化的payloadDefaultSerializer requires a Serializable payload but received an object of type [org.javaboy.vhr.TestBean.TestEmployee]*/
+            TestEmployee employee=userMapper.selectById(1020);
+           stringRedisTemplate.opsForValue().set("user1","liuxiang");
+           redisTemplate.opsForValue().set("qq14",employee);
+
+/*        String qq14 = JSON.toJSONString(redisTemplate.opsForValue().get("qq14"));
+        TestEmployee employee = JSON.parseObject(qq14, TestEmployee.class);
+        System.out.println(employee.getAge());*/
+//            System.out.println(JSON.parseArray(qq14,TestEmployee.class));
+    }
+
 }
+/*java对象->json对象->json字符串->java对象 or 数组对象->json对象
+*       toJSON     toString   parseObject parseArray  toJSON
+*               JSON.toJSONString
+* */

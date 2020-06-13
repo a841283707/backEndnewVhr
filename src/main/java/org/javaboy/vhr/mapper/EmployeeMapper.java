@@ -1,11 +1,17 @@
 package org.javaboy.vhr.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.ibatis.annotations.Param;
 import org.javaboy.vhr.bean.Employee;
 
-public interface EmployeeMapper {
+import java.util.Date;
+
+public interface EmployeeMapper extends BaseMapper<Employee> {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Employee record);
+//    int insert(Employee record);
 
     int insertSelective(Employee record);
 
@@ -14,4 +20,6 @@ public interface EmployeeMapper {
     int updateByPrimaryKeySelective(Employee record);
 
     int updateByPrimaryKey(Employee record);
+
+    IPage<Employee> selectPageVo(Page<?> page,  Employee emp, Date[] beginDateScope);
 }

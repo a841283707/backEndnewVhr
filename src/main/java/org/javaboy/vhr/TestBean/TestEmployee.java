@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 /**
  *
@@ -48,7 +49,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value="tbl_employee")
-public class TestEmployee {
+public class TestEmployee implements Serializable {
     /*
      * @TableId:
      * 	 value: 指定表中的主键列的列名， 如果实体属性名与列名一致，可以省略不指定.

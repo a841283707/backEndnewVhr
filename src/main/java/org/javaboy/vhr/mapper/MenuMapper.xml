@@ -37,7 +37,7 @@
   </resultMap>
   <resultMap id="BaseResultMap3" type="org.javaboy.vhr.bean.Menu" extends="BaseResultMap">
     <!--collection的第一种用法，sql执行一次，把重复的值带进collection查询一次的collection要写里面的属性，
-    collection的第二种用法，先查出主表的结果, 然后主表记录数是几 就执行几次 collection 的select,-->
+    collection的第二种用法，（在里面写了select方法））先查出主表的结果, 然后主表记录数是几 就执行几次 collection 的select,-->
     <collection property="roles" ofType="org.javaboy.vhr.bean.Role">
       <!--改成nameRole才好使-->
       <result column="nameRole" property="name" jdbcType="VARCHAR"/>

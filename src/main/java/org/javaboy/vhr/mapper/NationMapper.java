@@ -1,8 +1,9 @@
 package org.javaboy.vhr.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.javaboy.vhr.bean.Nation;
 
-public interface NationMapper {
+public interface NationMapper extends BaseMapper<Nation> {
     int deleteByPrimaryKey(Integer id);
 
     int insert(Nation record);

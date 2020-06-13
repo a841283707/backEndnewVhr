@@ -30,7 +30,9 @@
   <select id="getDeppath" resultType="java.lang.String" parameterType="java.lang.Integer">
     select depPath from department where id=#{parentId}
   </select>
-  <!--当传入多参数的时候两种解决办法，第一种param1 param2
+  <!--
+  https://www.jb51.net/article/176566.htm
+  当传入多参数的时候两种解决办法，第一种param1 param2
   第二种@Param的使用 1、用于传多参数，2、用于修改默认参数名字
   3、用于${列名}等不需要变成？的值，一定要加@Param不然会报错
   4、当给动态sql传参时需要加@Param 参考网址https://mp.weixin.qq.co
