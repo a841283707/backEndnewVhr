@@ -61,23 +61,23 @@
     <if test="emp.name !=null and emp.name!=''">
       and e.name like concat('%',#{emp.name},'%')
     </if>
-    <if test="emp.politicId !=null">
-      and e.politicId =#{emp.politicId}
+    <if test="emp.politicid !=null">
+      and e.politicId =#{emp.politicid}
     </if>
-    <if test="emp.nationId !=null">
-      and e.nationId =#{emp.nationId}
+    <if test="emp.nationid !=null">
+      and e.nationId =#{emp.nationid}
     </if>
-    <if test="emp.departmentId !=null">
-      and e.departmentId =#{emp.departmentId}
+    <if test="emp.departmentid !=null">
+      and e.departmentId =#{emp.departmentid}
     </if>
-    <if test="emp.jobLevelId !=null">
-      and e.jobLevelId =#{emp.jobLevelId}
+    <if test="emp.joblevelid !=null">
+      and e.jobLevelId =#{emp.joblevelid}
     </if>
-    <if test="emp.engageForm !=null and emp.engageForm!=''">
-      and e.engageForm =#{emp.engageForm}
+    <if test="emp.engageform !=null and emp.engageform!=''">
+      and e.engageForm =#{emp.engageform}
     </if>
-    <if test="emp.posId !=null">
-      and e.posId =#{emp.posId}
+    <if test="emp.posid !=null">
+      and e.posId =#{emp.posid}
     </if>
     <if test="beginDateScope !=null">
       and e.beginDate between #{beginDateScope[0]} and #{beginDateScope[1]}

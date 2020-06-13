@@ -1,8 +1,9 @@
 package org.javaboy.vhr.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.javaboy.vhr.bean.Politicsstatus;
 
-public interface PoliticsstatusMapper {
+public interface PoliticsstatusMapper extends BaseMapper<Politicsstatus> {
     int deleteByPrimaryKey(Integer id);
 
     int insert(Politicsstatus record);
