@@ -7,11 +7,13 @@ import org.apache.ibatis.annotations.Param;
 import org.javaboy.vhr.bean.Employee;
 
 import java.util.Date;
+import java.util.List;
 
 public interface EmployeeMapper extends BaseMapper<Employee> {
     int deleteByPrimaryKey(Integer id);
 
 //    int insert(Employee record);
+    Boolean batchInsert(List<Employee> employees);
 
     int insertSelective(Employee record);
 

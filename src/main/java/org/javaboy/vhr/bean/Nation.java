@@ -1,7 +1,23 @@
 package org.javaboy.vhr.bean;
 
+import org.apache.poi.ss.formula.functions.Na;
+
 public class Nation {
     private Integer id;
+
+    public Nation(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj==null || getClass()!=obj.getClass()){
+            return false;
+        }
+        Nation nation=(Nation)obj;
+        return (this.name.equals(nation.name));
+    }
 
     private String name;
 

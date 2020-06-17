@@ -3,6 +3,21 @@ package org.javaboy.vhr.bean;
 public class Politicsstatus {
     private Integer id;
 
+    public Politicsstatus(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj==null || getClass()!=obj.getClass()){
+            return false;
+        }
+        Politicsstatus politicsstatus=(Politicsstatus) obj;
+        return (this.name.equals(politicsstatus.name));
+    }
+
+
     private String name;
 
     public Integer getId() {

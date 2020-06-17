@@ -16,6 +16,9 @@ public class DepartmentService {
         return departmentMapper.getDepartmentByParentId(id);
     }
 
+    public List<Department> getDepartment(){
+        return departmentMapper.getAllDepartmentsWithOutChildren();
+    }
     public List<String> getName() {
         return departmentMapper.getName();
     }

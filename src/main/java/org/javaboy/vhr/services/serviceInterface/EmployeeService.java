@@ -13,4 +13,6 @@ import java.util.List;
  * */
 public interface EmployeeService extends IService<Employee> {
     EmployeeBasicVo getEmpByPage(Integer page, Integer size, Employee employee, Date[] beginDateScope);
+
+    Boolean batchInsert(List<Employee> employees);
 }

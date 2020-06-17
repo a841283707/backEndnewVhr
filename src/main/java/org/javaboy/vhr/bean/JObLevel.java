@@ -9,6 +9,21 @@ public class JObLevel {
 
     private String name;
 
+    public JObLevel(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj==null || getClass()!=obj.getClass()){
+            return false;
+        }
+        JObLevel jObLevel=(JObLevel) obj;
+        return (this.name.equals(jObLevel.name));
+    }
+
+
     private String titlelevel;
 
     @JsonFormat(pattern = "yyyy-MM-dd")

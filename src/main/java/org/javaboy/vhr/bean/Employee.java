@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -91,10 +92,13 @@ public class Employee {
 
     private Integer workage;
 
+    @ApiModelProperty(value = "技术工种")
     private Position position;
 
+    @ApiModelProperty(value = "名族实体类")
     private Nation nation;
 
+    @ApiModelProperty(value = "职称")
     private JObLevel jObLevel;
 
     @ApiModelProperty(value = "部门")
