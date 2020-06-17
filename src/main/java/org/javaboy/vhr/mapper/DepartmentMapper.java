@@ -20,6 +20,8 @@ public interface DepartmentMapper {
 
     List<Department> getDepartmentByParentId(Integer id);
 
+    List<Department> getAllDepartmentsWithOutChildren();
+
     List<String> getName();
 
     List<Department> getTest();

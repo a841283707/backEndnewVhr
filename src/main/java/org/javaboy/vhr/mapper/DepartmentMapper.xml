@@ -21,6 +21,13 @@
   <sql id="Base_Column_List" >
     id, name, parentId, depPath, enabled, isParent
   </sql>
+  <!--获得所有的department-->
+  <select id="getAllDepartmentsWithOutChildren" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List">
+    </include>
+    from department;
+  </select>
     <!--在使用requestparam的时候，由各个param插入，也可以使用parameterType="org.javaboy.vhr.bean.Department"
     使用requestBody的时候也一样-->
   <insert id="insertDepartment" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="org.javaboy.vhr.bean.Department"  >

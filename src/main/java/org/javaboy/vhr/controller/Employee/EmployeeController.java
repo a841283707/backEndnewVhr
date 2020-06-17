@@ -7,13 +7,17 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.models.auth.In;
 import org.javaboy.vhr.bean.*;
 import org.javaboy.vhr.bean.vo.EmployeeBasicVo;
+import org.javaboy.vhr.config.utils.PoiUtils;
 import org.javaboy.vhr.services.*;
 import org.javaboy.vhr.services.serviceInterface.EmployeeService;
 import org.javaboy.vhr.services.serviceInterface.NationService;
 import org.javaboy.vhr.services.serviceInterface.PoliticService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 @Api(tags = "员工基本信息的控制器")
@@ -86,5 +90,25 @@ public class EmployeeController {
 //    public List<Nation> getNation(){
 //        return nationService.getNation();
 //    }
+    @ApiOperation(value="上传excel的接口")
+    @PostMapping("/upload")
+    public RespBean uploadExcel(MultipartFile file) throws IOException {
+        List<Employee> employees = PoiUtils.parseFile2List(file, nationService.getNation(), politicService.getPoliticStatus(),
+                departmentService.getDepartment(), jobLevelService.getGrades(), positionService.getAllPosition());
+
+        Boolean aBoolean = employeeService.batchInsert(employees);
+        if (aBoolean){
+            return RespBean.ok("插入成功");
+        }else {
+            return RespBean.error("发生错误");
+        }
+
+    }
+
+    @ApiOperation(value = "导出excel的接口")
+    @PostMapping
+    public ResponseEntity<byte[]> export(){
+        return null;
+    }
 
 }

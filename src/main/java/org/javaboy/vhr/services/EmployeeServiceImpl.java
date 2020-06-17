@@ -28,4 +28,9 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         List<Employee> records = employeeIPage.getRecords();
         return new EmployeeBasicVo(records,total);
     }
+
+    @Override
+    public Boolean batchInsert(List<Employee> employees) {
+        return this.baseMapper.batchInsert(employees);
+    }
 }

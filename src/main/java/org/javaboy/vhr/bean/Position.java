@@ -7,6 +7,20 @@ import java.util.Date;
 public class Position {
     private Integer id;
 
+    public Position(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj==null || getClass()!=obj.getClass()){
+            return false;
+        }
+        Position position=(Position)obj;
+        return (this.name.equals(position.name));
+    }
+
     private String name;
 
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
