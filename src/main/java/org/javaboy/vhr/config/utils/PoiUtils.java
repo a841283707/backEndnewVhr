@@ -23,16 +23,20 @@ public class PoiUtils {
             XSSFSheet sheet = workbook.createSheet("sheet1");
 
             sheet.setDefaultColumnWidth((short) 15);
-
+            // 第一行
             XSSFRow row = sheet.createRow(0);
-
+            //得到表里域的名称
             Field[] fields = schema.getDeclaredFields();
 
             int index1 = 0;
             for (Field field : fields) {
+                //判断title里是否含有field的某个名称，有的话就创
                 if (title.containsKey(field.getName())) {
+                    //创建列
                     XSSFCell cell = row.createCell(index1);
+                    //创建列值
                     XSSFRichTextString text = new XSSFRichTextString(title.get(field.getName()));
+                    //set方法
                     cell.setCellValue(text);
                     index1++;
                 }
@@ -50,8 +54,9 @@ public class PoiUtils {
                         XSSFCell cell = row.createCell(index2);
 
                         String getMethodName = "get" + filedName.substring(0, 1).toUpperCase() + filedName.substring(1);
-
+                        //得到方法对象
                         Method getMethod = schema.getMethod(getMethodName);
+                        //利用方法对象激活方法
                         Object value = getMethod.invoke(object);
                         XSSFRichTextString text = new XSSFRichTextString(String.valueOf(value));
                         cell.setCellValue(text);
