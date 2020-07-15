@@ -63,8 +63,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     @Override
                     public <O extends FilterSecurityInterceptor> O postProcess(O object) {
-                        object.setAccessDecisionManager(customerAccessDecisionManage);
-                        object.setSecurityMetadataSource(customerFilter);
+                        object.setAccessDecisionManager(customerAccessDecisionManage);//根据认证信息进行,授权管理
+                        object.setSecurityMetadataSource(customerFilter);//得到需要的权限
                         return object;
                     }
                 })
