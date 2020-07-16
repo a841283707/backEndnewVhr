@@ -1,5 +1,6 @@
 package org.javaboy.vhr.controller;
 
+import io.swagger.annotations.Api;
 import org.javaboy.vhr.bean.Hr;
 import org.javaboy.vhr.services.HrService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+@Api(tags = "修改密码")
 @RestController
-@RequestMapping("/changepassword/")
+@RequestMapping("/change")
 public class ChangePassword {
-   /* @Autowired
+    @Autowired
     private HrService hrService;
 
     @RequestMapping("/updatePassword")
@@ -36,16 +38,16 @@ public class ChangePassword {
         //用户输入的新密码
         String newPassword = request.getParameter("newPassword");
         //根据名字获得用户
-        UserDetails userDetails = hrService.loadUserByUsername(username);
+        Hr userDetails = hrService.loadUserByUsername(username);
         //获得用户加密后的原密码
         String password2 = userDetails.getPassword();
         //判断输入的原密码和加密后的密码是否一致
         BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
         boolean matches = bc.matches(password,password2 );
         if (matches) {
-            userDetails.setPassword(passwordEncoder.encode(newPassword));
+            userDetails.setPassword(bc.encode(newPassword));
             //如果输入原密码正确就修改密码
-            sysUserService.updatePassword(sysUser);
+//            sysUserService.updatePassword(sysUser);
             session.setAttribute("result","true");
             return "main";
         } else {
@@ -53,8 +55,8 @@ public class ChangePassword {
             session.setAttribute("result","false");
         }
         return "update-password";
-    }*/
-/*    @RequestMapping("/updatePassword")
+    }
+   /* @RequestMapping("/updatePassword")
     public String updatePassword(HttpServletRequest request) {
         //获取session
         HttpSession session = request.getSession();

@@ -13,7 +13,7 @@ public class HrService implements UserDetailsService {
     @Autowired
     HrMapper hrMapper;
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public Hr loadUserByUsername(String username) throws UsernameNotFoundException {
         Hr hr=hrMapper.loadUserByUsername(username);
         if (hr==null){
             throw new UsernameNotFoundException("用户名不存在");
