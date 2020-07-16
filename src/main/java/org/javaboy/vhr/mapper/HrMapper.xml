@@ -16,6 +16,11 @@
   <sql id="Base_Column_List" >
     id, name, phone, telephone, address, enabled, username, password, userface, remark
   </sql>
+  <!--修改密码的sql-->
+  <update id="updatePasswordByUserName" parameterType="org.javaboy.vhr.bean.Hr">
+    update from hr set password=#{hrByuserName.password} where username=#{hrByuserName.username}
+  </update>
+  
   <select id="getHrRoleById" resultType="org.javaboy.vhr.bean.Role" parameterType="java.lang.Integer">
     select role.* from role,hr_role where role.id=hr_role.rid and hr_role.hrid=#{id}
   </select>

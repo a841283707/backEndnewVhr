@@ -21,4 +21,8 @@ public class HrService implements UserDetailsService {
         hr.setRoles(hrMapper.getHrRoleById(hr.getId()));
         return hr;
     }
+
+    public void updatePassword(Hr hrByuserName) {
+        hrMapper.updatePasswordByUserName(hrByuserName);
+    }
 }

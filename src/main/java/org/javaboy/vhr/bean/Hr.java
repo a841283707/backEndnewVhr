@@ -1,5 +1,6 @@
 package org.javaboy.vhr.bean;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@TableName(value = "hr")
 public class Hr implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

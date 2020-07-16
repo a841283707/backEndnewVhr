@@ -10,7 +10,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,35 +26,36 @@ public class ChangePassword {
     private HrService hrService;
 
     @RequestMapping("/updatePassword")
-    public String updatePassword(HttpServletRequest request) {
+    public String updatePassword(HttpServletRequest request, @RequestParam String password,@RequestParam String newpwd) {
         //获取session
         HttpSession session = request.getSession();
         //获取session域的用户名
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();
-        User user = (User) authentication.getPrincipal();
+        Hr user = (Hr) authentication.getPrincipal();
         System.out.println(user);
         String username = user.getUsername();
         //获取用户输入的原密码
-        String password = request.getParameter("password");
+        String resetForm = request.getParameter("resetForm");
         //用户输入的新密码
-        String newPassword = request.getParameter("newPassword");
+//        String newPassword = request.getParameter("newPassword");
         //根据名字获得用户
-        Hr userDetails = hrService.loadUserByUsername(username);
+        Hr hrByuserName = hrService.loadUserByUsername(username);
         //获得用户加密后的原密码
-        String password2 = userDetails.getPassword();
+        String password2 = hrByuserName.getPassword();
         //判断输入的原密码和加密后的密码是否一致
         BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
         boolean matches = bc.matches(password,password2 );
         if (matches) {
-            userDetails.setPassword(bc.encode(newPassword));
+            hrByuserName.setPassword(bc.encode(newpwd));
             //如果输入原密码正确就修改密码
+            hrService.updatePassword(hrByuserName);
 //            sysUserService.updatePassword(sysUser);
-            session.setAttribute("result","true");
-            return "main";
+//            session.setAttribute("result","true");
+//            return "main";
         } else {
             //如果不存在提示密码不正确
-            session.setAttribute("result","false");
+//            session.setAttribute("result","false");
         }
         return "update-password";
     }
