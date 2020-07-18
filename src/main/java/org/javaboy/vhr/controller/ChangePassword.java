@@ -1,6 +1,8 @@
 package org.javaboy.vhr.controller;
 
 import io.swagger.annotations.Api;
+import org.javaboy.vhr.bean.CommonUtil.CommUtils;
+import org.javaboy.vhr.bean.CommonUtil.CommonException;
 import org.javaboy.vhr.bean.CommonUtil.HttpResponse;
 import org.javaboy.vhr.bean.CommonUtil.ResponseType;
 import org.javaboy.vhr.bean.Hr;
@@ -30,7 +32,7 @@ public class ChangePassword {
     @RequestMapping("/updatePassword")
     public HttpResponse updatePassword(HttpServletRequest request, @RequestParam String password,@RequestParam String newpwd) {
         //获取session
-        HttpSession session = request.getSession();
+//        HttpSession session = request.getSession();
         //获取session域的用户名
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();
@@ -43,6 +45,10 @@ public class ChangePassword {
 //        String newPassword = request.getParameter("newPassword");
         //根据名字获得用户
         Hr hrByuserName = hrService.loadUserByUsername(username);
+        if (CommUtils.isNull(hrByuserName)){
+//            throw new CommonException(ResponseType.PASSWORD_NOT_MATCH,"密码错误");
+            return new HttpResponse(ResponseType.PASSWORD_NOT_MATCH,"无此用户");
+        }
         //获得用户加密后的原密码
         String password2 = hrByuserName.getPassword();
         //判断输入的原密码和加密后的密码是否一致
@@ -58,6 +64,7 @@ public class ChangePassword {
         } else {
             //如果不存在提示密码不正确
 //            session.setAttribute("result","false");
+            return new HttpResponse(ResponseType.PASSWORD_NOT_MATCH,"密码错误");
         }
         return new HttpResponse(ResponseType.SUCCESS,"修改成功");
     }
