@@ -18,7 +18,7 @@
   </sql>
   <!--修改密码的sql-->
   <update id="updatePasswordByUserName" parameterType="org.javaboy.vhr.bean.Hr">
-    update from hr set password=#{hrByuserName.password} where username=#{hrByuserName.username}
+    update  hr set password=#{password} where username=#{username}
   </update>
   
   <select id="getHrRoleById" resultType="org.javaboy.vhr.bean.Role" parameterType="java.lang.Integer">

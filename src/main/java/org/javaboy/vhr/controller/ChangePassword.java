@@ -1,6 +1,8 @@
 package org.javaboy.vhr.controller;
 
 import io.swagger.annotations.Api;
+import org.javaboy.vhr.bean.CommonUtil.HttpResponse;
+import org.javaboy.vhr.bean.CommonUtil.ResponseType;
 import org.javaboy.vhr.bean.Hr;
 import org.javaboy.vhr.services.HrService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,7 @@ public class ChangePassword {
     private HrService hrService;
 
     @RequestMapping("/updatePassword")
-    public String updatePassword(HttpServletRequest request, @RequestParam String password,@RequestParam String newpwd) {
+    public HttpResponse updatePassword(HttpServletRequest request, @RequestParam String password,@RequestParam String newpwd) {
         //获取session
         HttpSession session = request.getSession();
         //获取session域的用户名
@@ -57,7 +59,7 @@ public class ChangePassword {
             //如果不存在提示密码不正确
 //            session.setAttribute("result","false");
         }
-        return "update-password";
+        return new HttpResponse(ResponseType.SUCCESS,"修改成功");
     }
    /* @RequestMapping("/updatePassword")
     public String updatePassword(HttpServletRequest request) {
